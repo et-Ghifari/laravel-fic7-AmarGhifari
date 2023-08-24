@@ -12,35 +12,43 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
-    return view('apps.ecommerce-dashboard', ['type_menu' => '']);
+    return view('auths.login', ['type_menu' => '']);
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/home', function () {
+        return view('apps.ecommerce-dashboard', ['type_menu' => 'dashboard']);
+    });
+    Route::get('/blank', function () {
+        return view('apps.blank-page', ['type_menu' => 'dashboard']);
+    });
 });
 
 // auth
-Route::get('/forgot-password', function () {
-    return view('auths.forgot-password', ['type_menu' => 'auths']);
-});
-Route::get('/login', function () {
-    return view('auths.login', ['type_menu' => 'auths']);
-});
-Route::get('/login2', function () {
-    return view('auths.login2', ['type_menu' => 'auths']);
-});
-Route::get('/register', function () {
-    return view('auths.register', ['type_menu' => 'auths']);
-});
-Route::get('/reset-password', function () {
-    return view('auths.reset-password', ['type_menu' => 'auths']);
-});
+// Route::get('/forgot-password', function () {
+//     return view('auths.forgot-password', ['type_menu' => 'auths']);
+// });
+// Route::get('/login', function () {
+//     return view('auths.login', ['type_menu' => 'auths']);
+// });
+// Route::get('/login2', function () {
+//     return view('auths.login2', ['type_menu' => 'auths']);
+// });
+// Route::get('/register', function () {
+//     return view('auths.register', ['type_menu' => 'auths']);
+// });
+// Route::get('/reset-password', function () {
+//     return view('auths.reset-password', ['type_menu' => 'auths']);
+// });
 
 // forms
-Route::get('/advanced-form', function () {
-    return view('forms.advanced-form', ['type_menu' => 'forms']);
-});
-Route::get('/editor', function () {
-    return view('forms.editor', ['type_menu' => 'forms']);
-});
-Route::get('/validation', function () {
-    return view('forms.validation', ['type_menu' => 'forms']);
-});
+// Route::get('/advanced-form', function () {
+//     return view('forms.advanced-form', ['type_menu' => 'forms']);
+// });
+// Route::get('/editor', function () {
+//     return view('forms.editor', ['type_menu' => 'forms']);
+// });
+// Route::get('/validation', function () {
+//     return view('forms.validation', ['type_menu' => 'forms']);
+// });
