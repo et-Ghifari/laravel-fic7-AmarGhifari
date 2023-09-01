@@ -8,18 +8,51 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="nav-item dropdown {{ $type_menu === 'dashboard' ? 'active' : '' }}">
+            <li class="{{ Request::is('home') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('home') }}"><i class="fas fa-fire">
+                    </i> <span>Dashboard</span>
+                </a>
+            </li>
+            @auth
+                @if (auth()->user()->role == 'admin' || auth()->user()->role == 'superadmin')
+                    <li class="menu-header">Databases</li>
+                    <li class="{{ Request::is('user') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('user.index') }}"><i class="fas fa-users">
+                            </i> <span>Users</span>
+                        </a>
+                    </li>
+                    @if (auth()->user()->role == 'superadmin')
+                        <li class="{{ Request::is('registrants') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('registrants') }}"><i class="fas fa-database">
+                                </i> <span>Registrants</span>
+                            </a>
+                        </li>
+                    @endif
+                @endif
+            @endauth
+            {{-- <li class="nav-item dropdown {{ $type_menu === 'dashboard' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
                 <ul class="dropdown-menu">
-                    <li class='{{ Request::is('blank') ? 'active' : '' }}'>
-                        <a class="nav-link" href="{{ url('blank') }}">General Dashboard</a>
-                    </li>
                     <li class="{{ Request::is('home') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('home') }}">Ecommerce Dashboard</a>
                     </li>
+                    @auth
+                        @if (auth()->user()->role == 'admin' || auth()->user()->role == 'superadmin')
+                            <li class='{{ Request::is('blank') ? 'active' : '' }}'>
+                                <a class="nav-link" href="{{ url('blank') }}">Blank Page</a>
+                            </li>
+                        @endif
+                    @endauth
+                    @auth
+                        @if (auth()->user()->role == 'superadmin')
+                            <li class="{{ Request::is('page') ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ url('page') }}">Blank</a>
+                            </li>
+                        @endif
+                    @endauth
                 </ul>
-            </li>
-            <li class="menu-header">Starter</li>
+            </li> --}}
+            {{-- <li class="menu-header">Starter</li>
             <li class="nav-item dropdown {{ $type_menu === 'layout' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Layout</span></a>
@@ -165,7 +198,7 @@
                         <a class="nav-link" href="{{ url('validation') }}">Validation</a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             {{-- <li class="nav-item dropdown">
                 <a href="#"
                     class="nav-link has-dropdown"><i class="fas fa-map-marker-alt"></i> <span>Google
@@ -181,7 +214,7 @@
                     <li><a href="gmaps-simple.html">Simple</a></li>
                 </ul>
             </li> --}}
-            <li class="nav-item dropdown {{ $type_menu === 'modules' ? 'active' : '' }}">
+            {{-- <li class="nav-item dropdown {{ $type_menu === 'modules' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-plug"></i> <span>Modules</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ Request::is('modules-calendar') ? 'active' : '' }}">
@@ -307,12 +340,12 @@
                 <a class="nav-link" href="{{ url('credits') }}"><i class="fas fa-pencil-ruler">
                     </i> <span>Credits</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
 
         <div class="hide-sidebar-mini mt-4 mb-4 p-3">
-            <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
-                <i class="fas fa-rocket"></i> Documentation
+            <a href="{{ url('home') }}" class="btn btn-primary btn-lg btn-block btn-icon-split">
+                <i class="fas fa-rocket"></i> Information
             </a>
         </div>
     </aside>

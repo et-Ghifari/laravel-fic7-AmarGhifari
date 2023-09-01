@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +18,19 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/home', function () {
-        return view('apps.ecommerce-dashboard', ['type_menu' => 'dashboard']);
-    });
-    Route::get('/blank', function () {
-        return view('apps.blank-page', ['type_menu' => 'dashboard']);
-    });
+    Route::get('home', function () {
+        return view('apps.dashboard', ['type_menu' => '']);
+    })->name('home')->middleware('can:dashboard');
+
+    Route::get('profile', function () {
+        return view('apps.profile', ['type_menu' => '']);
+    })->name('profile')->middleware('can:dashboard');
+
+    Route::get('registrants', function () {
+        return view('apps.registrants', ['type_menu' => '']);
+    })->name('registrants')->middleware('can:registrants');
+
+    Route::resource('user', UserController::class)->middleware('can:users');
 });
 
 // auth

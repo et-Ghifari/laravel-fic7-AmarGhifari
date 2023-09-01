@@ -4,9 +4,16 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use \App\Models\User;
 
 class AuthServiceProvider extends ServiceProvider
 {
+    public static $permission = [
+        'dashboard' => ['superadmin', 'admin', 'user'],
+        'users' => ['superadmin', 'admin'],
+        'registrants' => ['superadmin'],
+    ];
     /**
      * The model to policy mappings for the application.
      *
@@ -21,6 +28,12 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        foreach (self::$permission as $feature => $roles) {
+            Gate::define($feature, function (User $user) use ($roles) {
+                if (in_array($user->role, $roles)) {
+                    return true;
+                }
+            });
+        }
     }
 }
