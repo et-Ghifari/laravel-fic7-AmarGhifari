@@ -22,7 +22,7 @@
                         class="form-control @error('name')
                         is-invalid
                     @enderror"
-                        name="name" autofocus>
+                        name="name" autofocus value="{{old('name')}}">
                     @error('name')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -35,7 +35,7 @@
                         class="form-control @error('email')
                         is-invalid
                     @enderror"
-                        name="email">
+                        name="email" value="{{old('email')}}">
                     @error('email')
                         <div class="invalid-feedback">
                             {{ $message }}
