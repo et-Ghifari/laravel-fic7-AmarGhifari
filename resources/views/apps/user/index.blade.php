@@ -12,9 +12,15 @@
         <section class="section">
             <div class="section-header">
                 <h1>User Management</h1>
-                <div class="section-header-button">
-                    <a href="features-post-create.html" class="btn btn-primary">Add New</a>
-                </div>
+                @auth
+                    @if (auth()->user()->role == 'superadmin') {
+                        <div class="section-header-button">
+                            <a href="features-post-create.html" class="btn btn-primary">Add New</a>
+                        </div>
+                    }
+
+                    @endif
+                @endauth
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Databases</a></div>
                     <div class="breadcrumb-item">All Users</div>
